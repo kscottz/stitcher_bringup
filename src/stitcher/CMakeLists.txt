@@ -4,7 +4,7 @@ project(stitcher)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp)
+find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -96,14 +96,16 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # )
 
 ## Declare a cpp executable
-add_executable(hello hello.cpp)
+add_executable(pubvel pubvel.cpp)
+add_executable(subpose subpose.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(stitcher_node stitcher_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(hello ${catkin_LIBRARIES})
+target_link_libraries(pubvel ${catkin_LIBRARIES})
+target_link_libraries(subpose ${catkin_LIBRARIES})
 
 #############
 ## Install ##
