@@ -4,7 +4,15 @@ project(stitcher)
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
+find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  image_transport
+  roscpp
+  std_msgs
+  usb_cam
+)
+
+find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -63,7 +71,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
-#   std_msgs  # Or other packages containing msgs
+#   std_msgs
 # )
 
 ###################################
@@ -78,7 +86,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp geometry_msgs)
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES stitcher
-#  CATKIN_DEPENDS other_catkin_pkg
+#  CATKIN_DEPENDS cv_bridge image_transport opencv2 roscpp std_msgs usb_cam
 #  DEPENDS system_lib
 )
 
@@ -88,7 +96,11 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-include_directories(include ${catkin_INCLUDE_DIRS})
+# include_directories(include)
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+)
 
 ## Declare a cpp library
 # add_library(stitcher
@@ -96,16 +108,17 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 # )
 
 ## Declare a cpp executable
-add_executable(pubvel pubvel.cpp)
-add_executable(subpose subpose.cpp)
+add_executable(testcam src/main.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(stitcher_node stitcher_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(pubvel ${catkin_LIBRARIES})
-target_link_libraries(subpose ${catkin_LIBRARIES})
+target_link_libraries(testcam
+    ${catkin_LIBRARIES}
+    ${OpenCV_LIBRARIES}
+)
 
 #############
 ## Install ##
