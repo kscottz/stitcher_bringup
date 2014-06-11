@@ -8,11 +8,20 @@ find_package(catkin REQUIRED COMPONENTS
   cv_bridge
   image_transport
   roscpp
+  rospy
   std_msgs
   usb_cam
+  dynamic_reconfigure
+)
+
+# dynamic_reconfiguration
+## erase this: find_package(dynamic_reconfigure REQUIRED)
+generate_dynamic_reconfigure_options(
+    cfg/StitcherConfig.cfg
 )
 
 find_package(OpenCV REQUIRED)
+
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
